@@ -5,15 +5,16 @@
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.rider</depends>
+    <depends>com.jetbrains.rider-cpp</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.decoyrs.ezargs.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.decoyrs.ezargs.services.MyProjectService"/>
+    <actions>
+        <action id="ArgumentsInputFieldAction"
+                class="com.github.decoyrs.ezargs.actions.ArgumentsInputField" text="Add commandline arguments">
+          <add-to-group group-id="NavBarToolBar" />
+        </action>
+    </actions>
+    <extensions  defaultExtensionNs="com.jetbrains.rider-cpp">
+        <run.configurations.cpp implementation="com.github.decoyrs.ezargs.services.EzArgsCppConfigurationParametersExtension"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.decoyrs.ezargs.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>

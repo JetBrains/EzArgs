@@ -49,9 +49,8 @@ dependencies {
 // Read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
     pluginName = pluginName_
-    version = platformVersion
+    version = "$platformVersion-SNAPSHOT"
     type = platformType
-    downloadSources = platformDownloadSources.toBoolean()
     updateSinceUntilBuild = true
 
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
