@@ -5,10 +5,13 @@ import com.jetbrains.rider.cpp.run.configurations.CppConfigurationParametersExte
 import com.intellij.openapi.project.Project
 
 @Suppress("unused")
-class EzArgsCppConfigurationParametersExtension(val project:Project) : CppConfigurationParametersExtension {
+class EzArgsCppConfigurationParametersExtension(private val project:Project) : CppConfigurationParametersExtension {
     override fun process(parameters: ExeConfigurationParameters){
         val service = project.getService(EzArgsService::class.java)
-        parameters.programParameters += " " + service.GetCurrentArguments()
-        service.AddArgumentsToHistory(service.GetCurrentArguments())
+        if(parameters.programParameters.isEmpty())
+            parameters.programParameters = service.arguments
+        else
+            parameters.programParameters += " " + service.arguments
+        service.addToHistory(service.arguments)
     }
 }

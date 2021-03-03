@@ -5,18 +5,19 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.Project
 
 @Service
-class EzArgsService(project: Project) {
+class EzArgsService(private val project: Project) {
     companion object {
         val ARGUMENTS_HISTORY_PROPERTY = "ezargs.argumentsList"
     }
 
-    private val history = PropertiesComponent.getInstance(project).getValues(ARGUMENTS_HISTORY_PROPERTY)?.toMutableList()
+    val history = PropertiesComponent.getInstance(project).getValues(ARGUMENTS_HISTORY_PROPERTY)?.toMutableList()
             ?: mutableListOf<String>()
-    private var arguments = history.getOrElse(0) { "" }
+    var arguments = history.getOrElse(0) { "" }
 
-    fun AddArgumentsToHistory(command:String) {
-        history.add(command)
+    fun addToHistory(newArguments:String) {
+        if(history.contains(newArguments)) return
+
+        history.add(newArguments)
+        PropertiesComponent.getInstance(project).setValues(ARGUMENTS_HISTORY_PROPERTY, history.toTypedArray())
     }
-
-    fun GetCurrentArguments() = arguments
 }
