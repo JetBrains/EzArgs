@@ -2,6 +2,7 @@ package com.github.decoyrs.ezargs.actions
 
 import com.github.decoyrs.ezargs.EzArgsBundle
 import com.github.decoyrs.ezargs.services.EzArgsService
+import com.github.decoyrs.ezargs.services.HistoryListener
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.Presentation
@@ -29,6 +30,11 @@ class ArgumentsInputField : AnAction(), CustomComponentAction, DocumentListener 
         val service = project!!.getService(EzArgsService::class.java)
         editorComboBox.setHistory(service.history.toTypedArray())
         editorComboBox.isInitialized = true
+        service.addHistoryListener {
+            editorComboBox.setHistory(it.toTypedArray())
+            val lastElement = editorComboBox.model.getElementAt(editorComboBox.model.size - 1)
+            editorComboBox.model.selectedItem = lastElement
+        }
     }
 
     override fun actionPerformed(p0: AnActionEvent) {

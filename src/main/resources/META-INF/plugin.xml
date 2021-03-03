@@ -10,7 +10,7 @@
 
     <actions>
         <action id="ArgumentsInputFieldAction"
-                class="com.github.decoyrs.ezargs.actions.ArgumentsInputField" text="Add commandline arguments">
+                class="com.github.decoyrs.ezargs.actions.ArgumentsInputField">
           <add-to-group group-id="NavBarToolBar" />
         </action>
     </actions>
