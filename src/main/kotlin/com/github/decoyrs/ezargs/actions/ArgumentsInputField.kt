@@ -2,7 +2,6 @@ package com.github.decoyrs.ezargs.actions
 
 import com.github.decoyrs.ezargs.EzArgsBundle
 import com.github.decoyrs.ezargs.services.EzArgsService
-import com.github.decoyrs.ezargs.services.HistoryListener
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.Presentation
@@ -13,7 +12,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.EditorComboBox
 
 class WrappedEditorComboBox(var isInitialized: Boolean = false) :
-        EditorComboBox(EzArgsBundle.message("action.ArgumentsInputField.tooltip"))
+    EditorComboBox(EzArgsBundle.message("action.ArgumentsInputField.tooltip"))
 
 class ArgumentsInputField : AnAction(), CustomComponentAction, DocumentListener {
     private var project: Project? = null
@@ -43,7 +42,7 @@ class ArgumentsInputField : AnAction(), CustomComponentAction, DocumentListener 
 
     override fun documentChanged(event: DocumentEvent) {
         super.documentChanged(event)
-        if(project == null) return
+        if (project == null) return
 
         val service = project!!.getService(EzArgsService::class.java)
         service.arguments = event.document.text
