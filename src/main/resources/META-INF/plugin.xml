@@ -9,9 +9,10 @@
     <depends>com.jetbrains.rider-cpp</depends>
 
     <actions>
-        <action id="ArgumentsInputFieldAction"
+        <action id="EzArgs.ArgumentsInputFieldAction"
                 class="com.github.decoyrs.ezargs.actions.ArgumentsInputField">
           <add-to-group group-id="NavBarToolBar" />
+          <keyboard-shortcut first-keystroke="ctrl alt R" keymap="$default"/>
         </action>
     </actions>
     <extensions  defaultExtensionNs="com.jetbrains.rider-cpp">

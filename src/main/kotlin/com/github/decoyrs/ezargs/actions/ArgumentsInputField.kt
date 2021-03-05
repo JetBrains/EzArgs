@@ -12,7 +12,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.EditorComboBox
 
 class WrappedEditorComboBox(var isInitialized: Boolean = false) :
-    EditorComboBox(EzArgsBundle.message("action.ArgumentsInputField.tooltip"))
+    EditorComboBox(EzArgsBundle.message("action.EzArgs.ArgumentsInputFieldAction.tooltip"))
 
 class ArgumentsInputField : AnAction(), CustomComponentAction, DocumentListener {
     private var project: Project? = null
