@@ -7,7 +7,7 @@ import com.jetbrains.rider.run.configurations.exe.ExeConfigurationParameters
 @Suppress("unused")
 class EzArgsCppConfigurationParametersExtension(private val project: Project) : CppConfigurationParametersExtension {
     override fun process(parameters: ExeConfigurationParameters) {
-        val service = project.getService(EzArgsService::class.java)
+        val service = EzArgsService.getInstance(project)
         if (parameters.programParameters.isEmpty()) {
             parameters.programParameters = service.arguments
         } else {
