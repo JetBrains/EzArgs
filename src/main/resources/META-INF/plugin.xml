@@ -9,11 +9,18 @@
     <depends>com.jetbrains.rider-cpp</depends>
 
     <actions>
-        <action id="EzArgs.ArgumentsInputFieldAction"
-                class="com.github.decoyrs.ezargs.actions.ArgumentsInputField">
-          <add-to-group group-id="NavBarToolBar" />
-          <keyboard-shortcut first-keystroke="ctrl alt R" keymap="$default"/>
-        </action>
+        <group id="EzArgsNavbarGroup">
+            <action id="EzArgs.ArgumentsInputFieldAction"
+                    class="com.github.decoyrs.ezargs.actions.ArgumentsInputField">
+                <add-to-group group-id="NavBarToolBar" anchor="first"/>
+                <keyboard-shortcut first-keystroke="ctrl alt R" keymap="$default"/>
+            </action>
+        </group>
+
+        <group id="EzArgsToolbarGroup">
+            <reference ref="EzArgs.ArgumentsInputFieldAction"/>
+            <add-to-group group-id="MainToolBar" anchor="first"/>
+        </group>
     </actions>
     <extensions  defaultExtensionNs="com.jetbrains.rider-cpp">
         <run.configurations.cpp implementation="com.github.decoyrs.ezargs.services.EzArgsCppConfigurationParametersExtension"/>
