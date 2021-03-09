@@ -4,15 +4,16 @@ import com.github.decoyrs.ezargs.EzArgsBundle
 import com.github.decoyrs.ezargs.services.EzArgsService
 import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.actionSystem.ex.CustomComponentAction
+import com.intellij.openapi.project.DumbAware
 import com.intellij.ui.EditorComboBox
 import com.jetbrains.rd.platform.util.lifetime
 import com.jetbrains.rd.platform.util.project
 import javax.swing.JComponent
 
-class ArgumentsInputField : AnAction(), CustomComponentAction {
+class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
     override fun createCustomComponent(presentation: Presentation, place: String, context: DataContext): JComponent {
         return EditorComboBox(EzArgsBundle.message("action.EzArgs.ArgumentsInputFieldAction.tooltip")).apply {
-            val project = context.project!!
+            val project = context.project ?: return@apply
             val service = EzArgsService.getInstance(project)
             setHistory(service.history.toTypedArray())
             service.addHistoryListener(project.lifetime) { history ->
