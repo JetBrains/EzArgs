@@ -4,13 +4,13 @@ import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.event.DocumentEvent
+import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.project.Project
 import com.jetbrains.rd.platform.util.application
 import com.jetbrains.rd.util.lifetime.Lifetime
-import com.intellij.openapi.editor.event.DocumentListener
 import java.util.LinkedList
 
-inline fun <T> kotlin.collections.List<T>.firstOrElse(defaultValue: () -> T): T = firstOrNull() ?: defaultValue()
+inline fun <T> List<T>.firstOrElse(defaultValue: () -> T): T = firstOrNull() ?: defaultValue()
 
 fun interface HistoryListener {
     fun invoke(history: List<String>)
@@ -27,8 +27,8 @@ class EzArgsService(private val project: Project) : DocumentListener {
     fun addHistoryListener(lifetime: Lifetime, listener: HistoryListener) {
         application.assertIsDispatchThread()
         lifetime.bracket(
-                { historyListeners.add(listener) },
-                { historyListeners.remove(listener) }
+            { historyListeners.add(listener) },
+            { historyListeners.remove(listener) }
         )
     }
 
