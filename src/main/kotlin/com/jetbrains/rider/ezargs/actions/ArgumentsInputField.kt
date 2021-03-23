@@ -1,7 +1,7 @@
-package com.github.decoyrs.ezargs.actions
+package com.jetbrains.rider.ezargs.actions
 
-import com.github.decoyrs.ezargs.EzArgsBundle
-import com.github.decoyrs.ezargs.services.EzArgsService
+import com.jetbrains.rider.ezargs.EzArgsBundle
+import com.jetbrains.rider.ezargs.services.EzArgsService
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent

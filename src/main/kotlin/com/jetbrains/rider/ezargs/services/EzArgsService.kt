@@ -1,4 +1,4 @@
-package com.github.decoyrs.ezargs.services
+package com.jetbrains.rider.ezargs.services
 
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.components.Service

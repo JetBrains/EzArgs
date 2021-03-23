@@ -1,4 +1,4 @@
-package com.github.decoyrs.ezargs.services
+package com.jetbrains.rider.ezargs.services
 
 import com.intellij.openapi.project.Project
 import com.jetbrains.rider.cpp.run.configurations.CppConfigurationParametersExtension
