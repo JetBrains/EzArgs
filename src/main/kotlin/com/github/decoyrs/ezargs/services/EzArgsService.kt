@@ -35,9 +35,9 @@ class EzArgsService(private val project: Project) : DocumentListener {
     val history: LinkedList<String> = run {
         val values = PropertiesComponent.getInstance(project).getValues(ARGUMENTS_HISTORY_PROPERTY)
         if (values == null) {
-            LinkedList<String>()
+            return@run LinkedList<String>()
         }
-        LinkedList(values.toList())
+        return@run LinkedList(values.toList())
     }
     var arguments = history.firstOrElse { "" }
 
@@ -45,8 +45,8 @@ class EzArgsService(private val project: Project) : DocumentListener {
         application.assertIsDispatchThread()
         val trimmedArgs = newArguments.trim()
         if (trimmedArgs.isEmpty()) return
-        if (history.contains(trimmedArgs)) return
 
+        history.remove(trimmedArgs)
         history.addFirst(trimmedArgs)
         PropertiesComponent.getInstance(project).setValues(ARGUMENTS_HISTORY_PROPERTY, history.toTypedArray())
         historyListeners.forEach {
