@@ -1,7 +1,5 @@
 package com.jetbrains.rider.ezargs.actions
 
-import com.jetbrains.rider.ezargs.EzArgsBundle
-import com.jetbrains.rider.ezargs.services.EzArgsService
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -15,6 +13,8 @@ import com.intellij.ui.EditorComboBox
 import com.jetbrains.rd.platform.util.lifetime
 import com.jetbrains.rd.platform.util.project
 import com.jetbrains.rd.util.lifetime.onTermination
+import com.jetbrains.rider.ezargs.EzArgsBundle
+import com.jetbrains.rider.ezargs.services.EzArgsService
 import javax.swing.JComponent
 import javax.swing.JPanel
 
