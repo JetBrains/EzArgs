@@ -3,6 +3,7 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+## [1.0.2]
 ### Fixed
 - Fix https://github.com/JetBrains/EzArgs/issues/1
 ## [1.0.1]
