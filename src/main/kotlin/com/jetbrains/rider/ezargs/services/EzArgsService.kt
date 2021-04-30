@@ -10,8 +10,6 @@ import com.jetbrains.rd.platform.util.application
 import com.jetbrains.rd.util.lifetime.Lifetime
 import java.util.LinkedList
 
-inline fun <T> List<T>.firstOrElse(defaultValue: () -> T): T = firstOrNull() ?: defaultValue()
-
 fun interface HistoryListener {
     fun invoke(history: List<String>)
 }
@@ -20,6 +18,7 @@ fun interface HistoryListener {
 class EzArgsService(private val project: Project) : DocumentListener {
     companion object {
         const val ARGUMENTS_HISTORY_PROPERTY = "ezargs.argumentsList"
+        const val LAST_USED_ARGUMENT_PROPERTY = "ezargs.lastUsed"
         fun getInstance(project: Project): EzArgsService = project.service()
     }
 
@@ -39,11 +38,12 @@ class EzArgsService(private val project: Project) : DocumentListener {
         }
         return@run LinkedList(values.toList())
     }
-    var arguments = history.firstOrElse { "" }
+    var arguments = PropertiesComponent.getInstance(project).getValue(LAST_USED_ARGUMENT_PROPERTY) ?: ""
 
     fun addToHistory(newArguments: String) {
         application.assertIsDispatchThread()
         val trimmedArgs = newArguments.trim()
+        PropertiesComponent.getInstance(project).setValue(LAST_USED_ARGUMENT_PROPERTY, trimmedArgs)
         if (trimmedArgs.isEmpty()) return
 
         history.remove(trimmedArgs)

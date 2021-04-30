@@ -58,6 +58,7 @@ class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
         service.addHistoryListener(project.lifetime) {
             editorComboBox.setHistory(it.toTypedArray())
         }
+        editorComboBox.selectedItem = service.arguments
         wrappedEditorComboBox.add(editorComboBox)
     }
 
