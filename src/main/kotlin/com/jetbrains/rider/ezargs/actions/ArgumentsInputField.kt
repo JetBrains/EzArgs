@@ -1,19 +1,18 @@
 package com.jetbrains.rider.ezargs.actions
 
-import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.DataContext
-import com.intellij.openapi.actionSystem.Presentation
+import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.actionSystem.ex.CustomComponentAction
-import com.intellij.openapi.fileTypes.FileTypes
+import com.intellij.openapi.fileTypes.PlainTextFileType
+import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.ui.EditorComboBox
+import com.intellij.ui.LanguageTextField
+import com.intellij.util.textCompletion.TextCompletionUtil
 import com.jetbrains.rd.platform.util.lifetime
 import com.jetbrains.rd.platform.util.project
 import com.jetbrains.rd.util.lifetime.onTermination
-import com.jetbrains.rider.ezargs.EzArgsBundle
+import com.jetbrains.rider.ezargs.completion.CmdArgsCompletionProvider
 import com.jetbrains.rider.ezargs.services.EzArgsService
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -41,15 +40,20 @@ class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
 
     private fun initComponent(project: Project, wrappedEditorComboBox: WrappedEditorComboBox) {
         wrappedEditorComboBox.isInitialized = true
+        val service = EzArgsService.getInstance(project)
+        val documentCreator = TextCompletionUtil.DocumentWithCompletionCreator(CmdArgsCompletionProvider, true)
+        val document = LanguageTextField.createDocument(
+            service.arguments, PlainTextLanguage.INSTANCE, project,
+            documentCreator
+        )
         val editorComboBox = EditorComboBox(
-            EzArgsBundle.message("action.EzArgs.ArgumentsInputFieldAction.tooltip"),
+            document,
             project,
-            FileTypes.PLAIN_TEXT
+            PlainTextFileType.INSTANCE
         )
         project.lifetime.onTermination {
             wrappedEditorComboBox.parent?.remove(wrappedEditorComboBox)
         }
-        val service = EzArgsService.getInstance(project)
         project.lifetime.bracket(
             { editorComboBox.addDocumentListener(service) },
             { editorComboBox.removeDocumentListener(service) }
