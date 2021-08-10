@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+### Added
+- Basic code completion for UE4 command line arguments 
 ## [1.0.3]
 ## [1.0.2]
 ### Fixed
