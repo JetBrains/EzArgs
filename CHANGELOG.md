@@ -5,6 +5,8 @@
 ## [Unreleased]
 ### Added
 - Basic code completion for UE4 command line arguments 
+### Fixed
+- Fix [A long list of arguments will permanently break the UI](https://github.com/JetBrains/EzArgs/issues/3)
 ## [1.0.3]
 ## [1.0.2]
 ### Fixed
