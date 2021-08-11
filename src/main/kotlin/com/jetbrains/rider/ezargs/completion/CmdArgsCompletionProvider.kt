@@ -1,6 +1,6 @@
 package com.jetbrains.rider.ezargs.completion
 
-import com.intellij.codeInsight.completion.*
+import com.intellij.codeInsight.completion.PrefixMatcher
 import com.intellij.codeInsight.completion.impl.CamelHumpMatcher
 import com.intellij.ui.TextFieldWithAutoCompletion
 

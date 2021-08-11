@@ -1,6 +1,9 @@
 package com.jetbrains.rider.ezargs.actions
 
-import com.intellij.openapi.actionSystem.*
+import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.Presentation
 import com.intellij.openapi.actionSystem.ex.CustomComponentAction
 import com.intellij.openapi.fileTypes.PlainTextFileType
 import com.intellij.openapi.fileTypes.PlainTextLanguage
@@ -21,6 +24,9 @@ import javax.swing.JPanel
 import javax.swing.SwingUtilities
 
 class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
+    companion object {
+        const val MAX_WIDTH = 200
+    }
     override fun actionPerformed(p0: AnActionEvent) {
         if (p0.place == ActionPlaces.KEYBOARD_SHORTCUT) {
             // Good first task: focus actions OR show mini text editor with run button
@@ -31,15 +37,15 @@ class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
         e.presentation.isEnabledAndVisible = true
     }
 
-    override fun createCustomComponent(presentation: Presentation, place: String, context: DataContext): JComponent {
+    override fun createCustomComponent(presentation: Presentation, place: String): JComponent {
         return object : JPanel(VerticalLayout(JBUI.scale(2))) {
             private var editorComboBox: EditorComboBox? = null
             private var project: Project? = null
                 set(value) {
-                    if(field == value) return
+                    if (field == value) return
                     destroy()
                     field = value
-                    value?.let{
+                    value?.let {
                         createAndAdd(it)
                     }
                 }
@@ -51,7 +57,7 @@ class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
             }
             private fun destroy() {
                 editorComboBox?.let {
-                    if(components.contains(it)) {
+                    if (components.contains(it)) {
                         remove(it)
                     }
                 }
@@ -70,7 +76,7 @@ class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
                     project,
                     PlainTextFileType.INSTANCE
                 ) {
-                    override fun getPreferredSize() = Dimension(JBUI.scale(200), super.getPreferredSize().height)
+                    override fun getPreferredSize() = Dimension(JBUI.scale(MAX_WIDTH), super.getPreferredSize().height)
                 }
 
                 project.lifetime.bracket(
