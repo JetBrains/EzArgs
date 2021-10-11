@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+### Added
+- Support for Rider 213 SDK
 ## [1.0.4]
 ### Added
 - Basic code completion for UE4 command line arguments 
