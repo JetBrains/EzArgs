@@ -6,7 +6,7 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.event.DocumentEvent
 import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.project.Project
-import com.jetbrains.rd.platform.util.application
+import com.intellij.util.application
 import com.jetbrains.rd.util.lifetime.Lifetime
 import java.util.LinkedList
 
