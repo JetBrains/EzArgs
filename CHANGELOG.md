@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+
+## [1.0.6]
 ### Fixed
 - Support for New Toolbar UI
 
