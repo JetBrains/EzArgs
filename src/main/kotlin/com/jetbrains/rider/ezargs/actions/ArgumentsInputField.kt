@@ -1,9 +1,6 @@
 package com.jetbrains.rider.ezargs.actions
 
-import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.Presentation
+import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.actionSystem.ex.CustomComponentAction
 import com.intellij.openapi.fileTypes.PlainTextFileType
 import com.intellij.openapi.fileTypes.PlainTextLanguage
@@ -11,6 +8,7 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.IdeFrame
 import com.intellij.ui.EditorComboBox
+import com.intellij.ui.EditorTextField
 import com.intellij.ui.LanguageTextField
 import com.intellij.ui.components.panels.VerticalLayout
 import com.intellij.util.textCompletion.TextCompletionUtil
@@ -24,9 +22,6 @@ import javax.swing.JPanel
 import javax.swing.SwingUtilities
 
 class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
-    companion object {
-        const val MAX_WIDTH = 200
-    }
     override fun actionPerformed(p0: AnActionEvent) {
         if (p0.place == ActionPlaces.KEYBOARD_SHORTCUT) {
             // Good first task: focus actions OR show mini text editor with run button
@@ -71,12 +66,24 @@ class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
                     project,
                     documentCreator
                 )
+
+                val borderWidth = 1
                 val newComboBox = object : EditorComboBox(
                     document,
                     project,
                     PlainTextFileType.INSTANCE
                 ) {
-                    override fun getPreferredSize() = Dimension(JBUI.scale(MAX_WIDTH), super.getPreferredSize().height)
+                    override fun getPreferredSize(): Dimension {
+                        val height = JBUI.scale(ActionToolbar.DEFAULT_MINIMUM_BUTTON_SIZE.height + 5)
+                        val prefSize = Dimension(super.getPreferredSize().width, height)
+                        val insets = border.getBorderInsets(this)
+                        val editorField = EditorComboBox::class.java.getDeclaredField("myEditorField")
+                        editorField.isAccessible = true
+                        val editorTextField = editorField.get(this) as EditorTextField
+                        editorTextField.component.preferredSize = Dimension(editorTextField.component.preferredSize.width,
+                            height - insets.top - insets.bottom - borderWidth * 2)
+                        return prefSize
+                    }
                 }
 
                 project.lifetime.bracket(
