@@ -3,7 +3,6 @@
 # EzArgs Changelog
 
 ## [Unreleased]
-## [1.0.7]
 ### Fixed
 - Size of editor panel was way of from the rest of toolbar elements
 
