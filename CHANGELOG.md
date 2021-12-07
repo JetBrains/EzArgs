@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.0.7]
+### Fixed
+- Size of editor panel was way of from the rest of toolbar elements
+
 ## [1.0.6]
 ### Fixed
 - Support for New Toolbar UI
