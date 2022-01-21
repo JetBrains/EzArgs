@@ -32,11 +32,9 @@ class EzArgsService(private val project: Project) : DocumentListener {
     }
 
     val history: LinkedList<String> = run {
-        val values = PropertiesComponent.getInstance(project).getValues(ARGUMENTS_HISTORY_PROPERTY)
-        if (values == null) {
-            return@run LinkedList<String>()
-        }
-        return@run LinkedList(values.toList())
+        val values = PropertiesComponent.getInstance(project).getList(ARGUMENTS_HISTORY_PROPERTY)
+            ?: return@run LinkedList<String>()
+        return@run LinkedList(values)
     }
     var arguments = PropertiesComponent.getInstance(project).getValue(LAST_USED_ARGUMENT_PROPERTY) ?: ""
 
@@ -48,7 +46,7 @@ class EzArgsService(private val project: Project) : DocumentListener {
 
         history.remove(trimmedArgs)
         history.addFirst(trimmedArgs)
-        PropertiesComponent.getInstance(project).setValues(ARGUMENTS_HISTORY_PROPERTY, history.toTypedArray())
+        PropertiesComponent.getInstance(project).setList(ARGUMENTS_HISTORY_PROPERTY, history)
         historyListeners.forEach {
             it.invoke(history)
         }
