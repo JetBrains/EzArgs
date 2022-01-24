@@ -19,8 +19,10 @@
 
         <group id="EzArgsToolbarGroup">
             <reference ref="EzArgs.ArgumentsInputFieldAction"/>
+            <separator/>
             <add-to-group group-id="MainToolBar" anchor="first"/>
-            <add-to-group group-id="CustomActions" anchor="first"/>
+            <add-to-group group-id="RightToolbarSideGroup" anchor="first"/>
+            <add-to-group group-id="RightToolbarSideGroupNoRunWidget" anchor="first"/>
         </group>
     </actions>
     <extensions  defaultExtensionNs="com.jetbrains.rider-cpp">
