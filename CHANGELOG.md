@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+
+## [1.0.9]
 ### Fixed
 - Add PROPER support for Rider 2022.1 EAP
 
