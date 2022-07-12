@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+### Fixed
+- Add compatibility with the new toolbar
 
 ## [1.0.10]
 ### Fixed
