@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 ### Fixed
+- Add support for Rider 2022.3 EAP
+
+## [1.0.11]
+### Fixed
 - Add compatibility with the new toolbar
 
 ## [1.0.10]
