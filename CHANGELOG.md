@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+
+## [1.0.12]
 ### Fixed
 - Add suppor for Rider 2022.3 EAP
 
