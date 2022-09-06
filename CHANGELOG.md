@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 ### Fixed
+- Bump plugins versions for 2022.3 compatibility
+
+## [1.0.12]
+### Fixed
 - Add support for Rider 2022.3 EAP
 
 ## [1.0.11]
