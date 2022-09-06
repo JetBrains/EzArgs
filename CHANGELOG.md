@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+
+## [1.0.13]
 ### Fixed
 - Bump plugins versions for 2022.3 compatibility
 
