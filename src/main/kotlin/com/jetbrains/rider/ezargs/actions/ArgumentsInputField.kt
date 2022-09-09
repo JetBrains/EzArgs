@@ -75,12 +75,12 @@ class ArgumentsInputField : AnAction(), DumbAware, CustomComponentAction {
                 ) {
                     override fun getPreferredSize(): Dimension {
                         val height = JBUI.scale(ActionToolbar.DEFAULT_MINIMUM_BUTTON_SIZE.height + 5)
-                        val prefSize = Dimension(super.getPreferredSize().width, height)
+                        val prefSize = Dimension(700, height)
                         val insets = border.getBorderInsets(this)
                         val editorField = EditorComboBox::class.java.getDeclaredField("myEditorField")
                         editorField.isAccessible = true
                         val editorTextField = editorField.get(this) as EditorTextField
-                        editorTextField.component.preferredSize = Dimension(editorTextField.component.preferredSize.width,
+                        editorTextField.component.preferredSize = Dimension(700,
                             height - insets.top - insets.bottom - borderWidth * 2)
                         return prefSize
                     }
