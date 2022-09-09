@@ -42,7 +42,6 @@ class EzArgsService(private val project: Project) : DocumentListener {
         application.assertIsDispatchThread()
         val trimmedArgs = newArguments.trim()
         PropertiesComponent.getInstance(project).setValue(LAST_USED_ARGUMENT_PROPERTY, trimmedArgs)
-        if (trimmedArgs.isEmpty()) return
 
         history.remove(trimmedArgs)
         history.addFirst(trimmedArgs)
