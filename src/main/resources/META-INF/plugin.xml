@@ -25,6 +25,14 @@
             <add-to-group group-id="RightToolbarSideGroupXamarin" anchor="first"/>
         </group>
     </actions>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable
+            parentId="tools"
+            instance="com.jetbrains.rider.ezargs.settings.AppSettingsConfigurable"
+            id="com.jetbrains.rider.ezargs.settings.AppSettingsConfigurable"
+            displayName="EzArgs" />
+        <applicationService serviceImplementation="com.jetbrains.rider.ezargs.settings.AppSettingsState" />
+    </extensions>
     <extensions  defaultExtensionNs="com.jetbrains.rider-cpp">
         <run.configurations.cpp implementation="com.jetbrains.rider.ezargs.services.EzArgsCppConfigurationParametersExtension"/>
     </extensions>
