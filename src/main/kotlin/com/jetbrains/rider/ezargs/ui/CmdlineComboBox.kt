@@ -8,20 +8,28 @@ import com.intellij.util.ui.JBUI
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.event.ActionListener
+import javax.swing.BorderFactory
 import javax.swing.ComboBoxEditor
 import javax.swing.DefaultComboBoxModel
 import javax.swing.event.DocumentListener
 
 open class CmdlineComboBox: ComboBox<String>() {
-    val borderWidth = 1
+    private val borderWidth = 1
+    private val myDocumentListeners: MutableList<DocumentListener> = ContainerUtil.createLockFreeCopyOnWriteList()
     val myCmdLineEditor = RawCommandLineEditor()
-    val myDocumentListeners =
-            ContainerUtil.createLockFreeCopyOnWriteList<DocumentListener>()
+    val uiDelta = 7
+    val toolbarHeight = JBUI.scale(ActionToolbar.DEFAULT_MINIMUM_BUTTON_SIZE.height + uiDelta)
+    val nestedHeight = toolbarHeight - insets.top - insets.bottom - borderWidth * 2
     init {
         enableEvents(8L)
         setHistory(arrayOf(""))
         setEditable(true)
         myCmdLineEditor.isEnabled = true
+        myCmdLineEditor.border = BorderFactory.createEmptyBorder()
+        myCmdLineEditor.insets.set(0,0,0,0)
+        myCmdLineEditor.editorField.border = BorderFactory.createEmptyBorder()
+        myCmdLineEditor.editorField.insets.set(0,0,0,0)
+        myCmdLineEditor.editorField.background = background
         setEditor(object : ComboBoxEditor {
             override fun getEditorComponent(): Component {
                 return myCmdLineEditor
@@ -47,10 +55,9 @@ open class CmdlineComboBox: ComboBox<String>() {
     }
 
     override fun getPreferredSize(): Dimension {
-        val height = JBUI.scale(ActionToolbar.DEFAULT_MINIMUM_BUTTON_SIZE.height + 5)
-        val prefSize = Dimension(myCmdLineEditor.preferredSize.width, height)
-        val insets = myCmdLineEditor.border.getBorderInsets(this)
-        myCmdLineEditor.preferredSize = Dimension(myCmdLineEditor.preferredSize.width, height - insets.top - insets.bottom - borderWidth * 2)
+        val prefSize = Dimension(myCmdLineEditor.preferredSize.width, toolbarHeight)
+        myCmdLineEditor.preferredSize = Dimension(myCmdLineEditor.preferredSize.width, nestedHeight)
+        myCmdLineEditor.editorField.preferredSize = Dimension(myCmdLineEditor.preferredSize.width, nestedHeight)
         return prefSize
     }
 
@@ -62,43 +69,14 @@ open class CmdlineComboBox: ComboBox<String>() {
         myCmdLineEditor.editorField.text = text
     }
 
-    fun getText() = myCmdLineEditor.editorField.text
+    fun getText(): String = myCmdLineEditor.editorField.text
 
     fun addDocumentListener(listener: DocumentListener){
         myDocumentListeners.add(listener)
         myCmdLineEditor.document.addDocumentListener(listener)
     }
+
     fun clearListeners(){
         myDocumentListeners.forEach { myCmdLineEditor.document.removeDocumentListener(it) }
     }
-
-//    private class MyEditor private constructor() : ComboBoxEditor {
-//        override fun addActionListener(l: ActionListener) {}
-//        override fun getEditorComponent(): Component {
-//            return
-//        }
-//
-//        override fun getItem(): Any {
-//            return this@EditorComboBox.myDocument.getText()
-//        }
-//
-//        override fun removeActionListener(l: ActionListener) {}
-//        override fun selectAll() {
-//            if (this@EditorComboBox.myEditorField != null) {
-//                val editor: Editor = this@EditorComboBox.myEditorField.getEditor()
-//                if (editor != null) {
-//                    editor.selectionModel.setSelection(0, this@EditorComboBox.myDocument.getTextLength())
-//                }
-//            }
-//        }
-//
-//        override fun setItem(anObject: Any) {
-//            if (anObject != null) {
-//                this@EditorComboBox.setText(anObject.toString())
-//            } else {
-//                this@EditorComboBox.setText("")
-//            }
-//        }
-//    }
-
 }
