@@ -25,7 +25,7 @@ class EzArgsService(private val project: Project) : DocumentListener {
     private val historyListeners = mutableListOf<HistoryListener>()
     fun addHistoryListener(lifetime: Lifetime, listener: HistoryListener) {
         application.assertIsDispatchThread()
-        lifetime.bracket(
+        lifetime.bracketIfAlive(
             { historyListeners.add(listener) },
             { historyListeners.remove(listener) }
         )
