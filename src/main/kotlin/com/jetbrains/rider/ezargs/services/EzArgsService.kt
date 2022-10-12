@@ -8,7 +8,8 @@ import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.project.Project
 import com.intellij.util.application
 import com.jetbrains.rd.util.lifetime.Lifetime
-import java.util.LinkedList
+import com.jetbrains.rider.ezargs.settings.AppSettingsState
+import java.util.*
 
 fun interface HistoryListener {
     fun invoke(history: List<String>)
@@ -25,7 +26,7 @@ class EzArgsService(private val project: Project) : DocumentListener {
     private val historyListeners = mutableListOf<HistoryListener>()
     fun addHistoryListener(lifetime: Lifetime, listener: HistoryListener) {
         application.assertIsDispatchThread()
-        lifetime.bracket(
+        lifetime.bracketIfAlive(
             { historyListeners.add(listener) },
             { historyListeners.remove(listener) }
         )
@@ -46,6 +47,9 @@ class EzArgsService(private val project: Project) : DocumentListener {
 
         history.remove(trimmedArgs)
         history.addFirst(trimmedArgs)
+        while(history.size > AppSettingsState.Instance.historySize) {
+            history.removeLast()
+        }
         PropertiesComponent.getInstance(project).setList(ARGUMENTS_HISTORY_PROPERTY, history)
         historyListeners.forEach {
             it.invoke(history)
