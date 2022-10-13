@@ -9,7 +9,8 @@
 ### Added
 - Expand button (with Shift + Enter hotkey) to easily modify command arguments
 - Settings to limit number of command line arguments history
-- Settings to set the size of the edit field 
+- Settings to set the size of the edit field
+- Support for new experimental IntelliJ UI
 
 ## [1.0.13]
 ### Fixed
