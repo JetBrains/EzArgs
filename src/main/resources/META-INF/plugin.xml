@@ -13,6 +13,7 @@
             <action id="EzArgs.ArgumentsInputFieldAction"
                     class="com.jetbrains.rider.ezargs.actions.ArgumentsInputField">
                 <add-to-group group-id="NavBarToolBar" anchor="first"/>
+                <add-to-group group-id="MainToolbarRight" anchor="first"/>
                 <keyboard-shortcut first-keystroke="ctrl alt R" keymap="$default"/>
             </action>
         </group>
