@@ -1,6 +1,7 @@
 package com.jetbrains.rider.ezargs.settings
 
 import com.intellij.openapi.ui.ComboBox
+import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.util.ui.FormBuilder
 import javax.swing.JPanel
@@ -16,10 +17,15 @@ class AppSettingsComponent {
         item = AppSettingsState.Instance.historySize
         isEditable = true
     }
+    private val shouldOverwriteRunConfigs = JBCheckBox("Should overwrite Run Configuration program arguments").apply {
+        isSelected = AppSettingsState.Instance.shouldOverwriteRunConfigurationParameters
+    }
+
     private val mainPanel:JPanel = FormBuilder
         .createFormBuilder()
         .addLabeledComponent(JBLabel("History size:"), historySizeField, 1,false)
         .addLabeledComponent(JBLabel("Width:"), widthField, 1,false)
+        .addComponent( shouldOverwriteRunConfigs, 1)
         .addComponentFillVertically(JPanel(), 0)
         .panel
 
@@ -35,5 +41,11 @@ class AppSettingsComponent {
 
     fun setWidth(width:Int) {
         widthField.editor.item = width
+    }
+
+    fun getShouldOverwrite(): Boolean = shouldOverwriteRunConfigs.isSelected
+
+    fun setShouldOverwrite(shouldOverwrite: Boolean) {
+        shouldOverwriteRunConfigs.isSelected = shouldOverwrite
     }
 }

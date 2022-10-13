@@ -13,7 +13,8 @@ class AppSettingsConfigurable : Configurable {
     override fun isModified(): Boolean {
         val settings = AppSettingsState.Instance
         return appSettingsComponent!!.getHistorySize() != settings.historySize ||
-                appSettingsComponent!!.getWidth() != settings.width
+                appSettingsComponent!!.getWidth() != settings.width ||
+                appSettingsComponent!!.getShouldOverwrite() != settings.shouldOverwriteRunConfigurationParameters
 
     }
 
@@ -21,6 +22,7 @@ class AppSettingsConfigurable : Configurable {
         val settings = AppSettingsState.Instance
         settings.historySize = appSettingsComponent!!.getHistorySize()
         settings.width = appSettingsComponent!!.getWidth()
+        settings.shouldOverwriteRunConfigurationParameters = appSettingsComponent!!.getShouldOverwrite()
     }
 
     override fun disposeUIResources() {
@@ -32,6 +34,7 @@ class AppSettingsConfigurable : Configurable {
         val settings = AppSettingsState.Instance
         appSettingsComponent!!.setHistorySize(settings.historySize)
         appSettingsComponent!!.setWidth(settings.width)
+        appSettingsComponent!!.setShouldOverwrite(settings.shouldOverwriteRunConfigurationParameters)
     }
 
     override fun getDisplayName() = "EzArgs Settings"

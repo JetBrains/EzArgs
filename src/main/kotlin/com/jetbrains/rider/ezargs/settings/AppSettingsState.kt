@@ -17,6 +17,7 @@ class AppSettingsState:PersistentStateComponent<AppSettingsState> {
 
     var historySize:Int = 10
     var width:Int = 250
+    var shouldOverwriteRunConfigurationParameters:Boolean = false
     override fun getState(): AppSettingsState {
         return this
     }
