@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+
+## [1.0.15]
 ### Fixed
 - Editor field expanding indefinitely occupying whole toolbar
 
@@ -10,7 +12,7 @@
 - Expand button (with Shift + Enter hotkey) to easily modify command arguments
 - Settings to limit number of command line arguments history
 - Settings to set the size of the edit field
-- Settings to change behavior for overwriting configurations from Run Configurations
+- Settings to change behavior for overwriting Program Arguments from selected Run Configuration
   - Before: EzArgs was appending its arguments to the end of the program arguments of selected Run Configuration
   - Now: you have an option in Settings to change this behavior to overwrite the program arguments from Run Configuration 
 - Support for new experimental IntelliJ UI
