@@ -6,7 +6,11 @@
 
 ## [1.0.16]
 ### Fixed
-- Bump plugins versions for 2023.1 compatibility 
+- Bump plugins versions for 2023.1 compatibility
+
+## [1.0.16]
+### Fixed
+- Bump plugins versions for 2023.1 compatibility
 
 ## [1.0.15]
 ### Fixed
