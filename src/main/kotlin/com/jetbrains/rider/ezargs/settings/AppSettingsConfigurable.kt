@@ -1,6 +1,7 @@
 package com.jetbrains.rider.ezargs.settings
 
 import com.intellij.openapi.options.Configurable
+import com.jetbrains.rider.ezargs.EzArgsBundle
 import javax.swing.JComponent
 
 class AppSettingsConfigurable : Configurable {
@@ -37,7 +38,7 @@ class AppSettingsConfigurable : Configurable {
         appSettingsComponent!!.setShouldOverwrite(settings.shouldOverwriteRunConfigurationParameters)
     }
 
-    override fun getDisplayName() = "EzArgs Settings"
+    override fun getDisplayName() = EzArgsBundle.message("EzArgs.settings.title")
     override fun getPreferredFocusedComponent(): JComponent {
         return appSettingsComponent!!.getPreferredFocusedComponent()
     }

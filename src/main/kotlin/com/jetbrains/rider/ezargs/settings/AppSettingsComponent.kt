@@ -4,6 +4,7 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.util.ui.FormBuilder
+import com.jetbrains.rider.ezargs.EzArgsBundle
 import javax.swing.JPanel
 
 class AppSettingsComponent {
@@ -17,14 +18,14 @@ class AppSettingsComponent {
         item = AppSettingsState.Instance.historySize
         isEditable = true
     }
-    private val shouldOverwriteRunConfigs = JBCheckBox("Should overwrite Run Configuration program arguments").apply {
+    private val shouldOverwriteRunConfigs = JBCheckBox(EzArgsBundle.message("EzArgs.settings.overwriteProgramArguments.checkbox.text")).apply {
         isSelected = AppSettingsState.Instance.shouldOverwriteRunConfigurationParameters
     }
 
     private val mainPanel:JPanel = FormBuilder
         .createFormBuilder()
-        .addLabeledComponent(JBLabel("History size:"), historySizeField, 1,false)
-        .addLabeledComponent(JBLabel("Width:"), widthField, 1,false)
+        .addLabeledComponent(JBLabel(EzArgsBundle.message("EzArgs.settings.historySize.label.text")), historySizeField, 1,false)
+        .addLabeledComponent(JBLabel(EzArgsBundle.message("EzArgs.settings.width.label.text")), widthField, 1,false)
         .addComponent( shouldOverwriteRunConfigs, 1)
         .addComponentFillVertically(JPanel(), 0)
         .panel
