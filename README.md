@@ -1,5 +1,6 @@
 # EzArgs
 
+[![official JetBrains project](https://jb.gg/badges/official-flat-square.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 ![Build](https://github.com/JetBrains/EzArgs/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/16411.svg)](https://plugins.jetbrains.com/plugin/16411)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/16411.svg)](https://plugins.jetbrains.com/plugin/16411)
