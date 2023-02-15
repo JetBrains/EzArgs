@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+### Added
+- Localization
 
 ## [1.0.16]
 ### Fixed
