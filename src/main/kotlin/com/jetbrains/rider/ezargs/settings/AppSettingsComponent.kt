@@ -9,17 +9,17 @@ import javax.swing.JPanel
 
 class AppSettingsComponent {
     private val widthField = ComboBox(arrayOf(250, 275, 300)).apply {
-        item = AppSettingsState.Instance.width
+        item = AppSettingsState.getInstance().width
         isEditable = true
         this.keySelectionManager
     }
 
     private val historySizeField = ComboBox(arrayOf(5, 10, 15, 20, 25, 30, 35, 40, 45, 50)).apply {
-        item = AppSettingsState.Instance.historySize
+        item = AppSettingsState.getInstance().historySize
         isEditable = true
     }
     private val shouldOverwriteRunConfigs = JBCheckBox(EzArgsBundle.message("EzArgs.settings.overwriteProgramArguments.checkbox.text")).apply {
-        isSelected = AppSettingsState.Instance.shouldOverwriteRunConfigurationParameters
+        isSelected = AppSettingsState.getInstance().shouldOverwriteRunConfigurationParameters
     }
 
     private val mainPanel:JPanel = FormBuilder

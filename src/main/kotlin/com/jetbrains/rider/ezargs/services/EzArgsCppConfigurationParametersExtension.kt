@@ -9,7 +9,7 @@ import com.jetbrains.rider.run.configurations.exe.ExeConfigurationParameters
 class EzArgsCppConfigurationParametersExtension(private val project: Project) : CppConfigurationParametersExtension {
     override fun process(parameters: ExeConfigurationParameters) {
         val service = EzArgsService.getInstance(project)
-        val shouldOverwrite = AppSettingsState.Instance.shouldOverwriteRunConfigurationParameters
+        val shouldOverwrite = AppSettingsState.getInstance().shouldOverwriteRunConfigurationParameters
         if (shouldOverwrite || parameters.programParameters.isEmpty()) {
             parameters.programParameters = service.arguments
         } else {

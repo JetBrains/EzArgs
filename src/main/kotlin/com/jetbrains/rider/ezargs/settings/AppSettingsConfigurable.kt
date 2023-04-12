@@ -12,7 +12,7 @@ class AppSettingsConfigurable : Configurable {
     }
 
     override fun isModified(): Boolean {
-        val settings = AppSettingsState.Instance
+        val settings = AppSettingsState.getInstance()
         return appSettingsComponent!!.getHistorySize() != settings.historySize ||
                 appSettingsComponent!!.getWidth() != settings.width ||
                 appSettingsComponent!!.getShouldOverwrite() != settings.shouldOverwriteRunConfigurationParameters
@@ -20,7 +20,7 @@ class AppSettingsConfigurable : Configurable {
     }
 
     override fun apply() {
-        val settings = AppSettingsState.Instance
+        val settings = AppSettingsState.getInstance()
         settings.historySize = appSettingsComponent!!.getHistorySize()
         settings.width = appSettingsComponent!!.getWidth()
         settings.shouldOverwriteRunConfigurationParameters = appSettingsComponent!!.getShouldOverwrite()
@@ -32,7 +32,7 @@ class AppSettingsConfigurable : Configurable {
     }
 
     override fun reset() {
-        val settings = AppSettingsState.Instance
+        val settings = AppSettingsState.getInstance()
         appSettingsComponent!!.setHistorySize(settings.historySize)
         appSettingsComponent!!.setWidth(settings.width)
         appSettingsComponent!!.setShouldOverwrite(settings.shouldOverwriteRunConfigurationParameters)

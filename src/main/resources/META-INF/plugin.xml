@@ -11,7 +11,7 @@
     <actions>
         <group id="EzArgsNavbarGroup">
             <action id="EzArgs.ArgumentsInputFieldAction"
-                    class="com.jetbrains.rider.ezargs.actions.ArgumentsInputField">
+                    class="com.jetbrains.rider.ezargs.actions.ArgumentsInputFieldAction">
                 <add-to-group group-id="NavBarToolBar" anchor="first"/>
                 <add-to-group group-id="MainToolbarRight" anchor="first"/>
                 <keyboard-shortcut first-keystroke="ctrl alt R" keymap="$default"/>
@@ -34,7 +34,7 @@
             displayName="EzArgs" />
         <applicationService serviceImplementation="com.jetbrains.rider.ezargs.settings.AppSettingsState" />
     </extensions>
-    <extensions  defaultExtensionNs="com.jetbrains.rider-cpp">
+    <extensions defaultExtensionNs="com.jetbrains.rider-cpp">
         <run.configurations.cpp implementation="com.jetbrains.rider.ezargs.services.EzArgsCppConfigurationParametersExtension"/>
     </extensions>
 </idea-plugin>
