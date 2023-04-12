@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.wm.WindowManager
+import com.intellij.ui.ColorUtil
 import com.intellij.ui.JBColor
 import com.intellij.ui.NewUI
 import com.intellij.ui.components.fields.ExpandableTextField
@@ -24,6 +25,7 @@ import java.awt.event.WindowEvent
 import java.awt.event.WindowListener
 import java.util.EventListener
 import javax.swing.DefaultComboBoxModel
+import javax.swing.JFrame
 import javax.swing.UIManager
 import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
@@ -50,6 +52,8 @@ class CmdlineComboBoxComponent(private val project: Project) : ComboBox<String>(
 
     private val documentListener: DocumentListener
     private val windowListener: WindowListener
+
+    private val windowFrame: JFrame?
     
     init {
         documentListener = object : DocumentListener {
@@ -68,7 +72,6 @@ class CmdlineComboBoxComponent(private val project: Project) : ComboBox<String>(
         }
 
         isOpaque = false
-        myCmdLineEditor.font = EditorUtil.getEditorFont(10)
         myCmdLineEditor.document.addDocumentListener(documentListener)
 
         enableEvents(8L)
@@ -78,12 +81,12 @@ class CmdlineComboBoxComponent(private val project: Project) : ComboBox<String>(
             override fun getEditorComponent() = myCmdLineEditor
         })
 
-        val frame = WindowManager.getInstance().getFrame(project)
-        if (frame == null) {
+        windowFrame = WindowManager.getInstance().getFrame(project)
+        if (windowFrame == null) {
             thisLogger().warn("Frame for project $project is null")
         }
-        frame?.isActive?.let { updateBackground(it) }
-        frame?.addWindowListener(windowListener)
+        windowFrame?.isActive?.let { updateBackground(it) }
+        windowFrame?.addWindowListener(windowListener)
 
         setUI(CustomDarculaComboBoxUI())
         myCmdLineEditor.setUIReal(CustomTextFieldWithPopupHandlerUI() as ComponentUI)
@@ -114,12 +117,23 @@ class CmdlineComboBoxComponent(private val project: Project) : ComboBox<String>(
             false -> UIManager.getColor("ComboBox.background")
         }
         if (NewUI.isEnabled()) {
-            putClientProperty("CustomBorderColor", JBColor(0x4f5257, 0x4f5257).brighter())
+            val isDarkHeader = ColorUtil.isDark(JBColor.namedColor("MainToolbar.background"))
+            val darkHeaderBorderColor = JBColor(0x4f5257, 0x4f5257).brighter()
+            val lightHeaderBorderColor = JBColor.PanelBackground.darker()
+            putClientProperty("CustomBorderColor", if (isDarkHeader) darkHeaderBorderColor else lightHeaderBorderColor)
         }
 
-        myCmdLineEditor.foreground = JBColor.namedColor("MainToolbar.foreground", Color.WHITE)
+        myCmdLineEditor.font = EditorUtil.getEditorFont(12)
+        myCmdLineEditor.foreground = JBColor.namedColor("MainToolbar.foreground", JBColor.foreground())
 
         repaint()
+    }
+
+    override fun updateUI() {
+        super.updateUI()
+        if (myCmdLineEditor != null) { // Don't remove: for some reason Swing calls updateUI earlier than class constructor
+            updateBackground(windowFrame?.isActive ?: true)
+        }
     }
 
     override fun dispose() {
