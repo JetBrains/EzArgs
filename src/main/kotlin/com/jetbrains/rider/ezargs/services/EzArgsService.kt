@@ -1,10 +1,9 @@
 package com.jetbrains.rider.ezargs.services
 
 import com.intellij.ide.util.PropertiesComponent
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
-import com.intellij.openapi.editor.event.DocumentEvent
-import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.project.Project
 import com.intellij.util.application
 import com.jetbrains.rd.util.lifetime.Lifetime
@@ -16,7 +15,7 @@ fun interface HistoryListener {
 }
 
 @Service
-class EzArgsService(private val project: Project) : DocumentListener {
+class EzArgsService(private val project: Project) : Disposable {
     companion object {
         const val ARGUMENTS_HISTORY_PROPERTY = "ezargs.argumentsList"
         const val LAST_USED_ARGUMENT_PROPERTY = "ezargs.lastUsed"
@@ -47,7 +46,7 @@ class EzArgsService(private val project: Project) : DocumentListener {
 
         history.remove(trimmedArgs)
         history.addFirst(trimmedArgs)
-        while(history.size > AppSettingsState.Instance.historySize) {
+        while(history.size > AppSettingsState.getInstance().historySize) {
             history.removeLast()
         }
         PropertiesComponent.getInstance(project).setList(ARGUMENTS_HISTORY_PROPERTY, history)
@@ -56,8 +55,5 @@ class EzArgsService(private val project: Project) : DocumentListener {
         }
     }
 
-    override fun documentChanged(event: DocumentEvent) {
-        super.documentChanged(event)
-        arguments = event.document.text
-    }
+    override fun dispose() {}
 }
