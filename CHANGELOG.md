@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+
+## [1.0.18]
 ### Fixed
 - [RIDER-89156](https://youtrack.jetbrains.com/issue/RIDER-89156/EZ-Args-combobox-changes-color-after-changing-theme)
 
