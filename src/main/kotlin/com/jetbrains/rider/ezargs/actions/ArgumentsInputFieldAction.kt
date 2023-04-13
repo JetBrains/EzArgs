@@ -34,6 +34,7 @@ class ArgumentsInputFieldAction : AnAction(), DumbAware, CustomComponentAction {
             service.addHistoryListener(service.createLifetime()) {
                 c.setHistory(it.toTypedArray())
             }
+            c.addListener(service) { newValue -> service.arguments = newValue }
         }
 
     override fun updateCustomComponent(component: JComponent, presentation: Presentation) {

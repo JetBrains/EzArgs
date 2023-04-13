@@ -18,12 +18,11 @@ import com.intellij.util.ui.JBUI.CurrentTheme.CustomFrameDecorations
 import com.jetbrains.rider.ezargs.settings.AppSettingsState
 import com.jetbrains.rider.ezargs.ui.platformCustomization.CustomDarculaComboBoxUI
 import com.jetbrains.rider.ezargs.ui.platformCustomization.CustomTextFieldWithPopupHandlerUI
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import java.awt.event.WindowListener
-import java.util.EventListener
+import java.util.*
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JFrame
 import javax.swing.UIManager
@@ -104,7 +103,7 @@ class CmdlineComboBoxComponent(private val project: Project) : ComboBox<String>(
     override fun getPreferredSize(): Dimension {
         val newWidth = JBUI.scale(settings.width)
         val prefSize = Dimension(newWidth, toolbarHeight - 2)
-        //myCmdLineEditor.preferredSize = Dimension(newWidth, prefSize.height-2)
+
         return prefSize
     }
 
@@ -148,6 +147,4 @@ class CmdlineComboBoxComponent(private val project: Project) : ComboBox<String>(
     fun setText(text: String) {
         myCmdLineEditor.text = text
     }
-
-    fun getText(): String = myCmdLineEditor.text
 }
