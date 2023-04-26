@@ -78,6 +78,16 @@ class CmdlineComboBoxComponent(private val project: Project) : ComboBox<String>(
 
         setEditor(object : BasicComboBoxEditor() {
             override fun getEditorComponent() = myCmdLineEditor
+            override fun setItem(anObject: Any?) {
+                if(anObject != null) {
+                    myCmdLineEditor.text = anObject.toString()
+                } else {
+                    myCmdLineEditor.text = ""
+                }
+            }
+            override fun getItem(): Any {
+                return myCmdLineEditor.text
+            }
         })
 
         windowFrame = WindowManager.getInstance().getFrame(project)
