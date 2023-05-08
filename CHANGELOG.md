@@ -4,7 +4,11 @@
 
 ## [Unreleased]
 ### Fixed
-- Selecting arguments from the history 
+- Support for 2023.2 IDE's
+
+## [1.0.19]
+### Fixed
+- Selecting arguments from the history
 
 ## [1.0.18]
 ### Fixed
