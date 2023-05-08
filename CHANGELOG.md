@@ -3,6 +3,8 @@
 # EzArgs Changelog
 
 ## [Unreleased]
+
+## [1.0.20]
 ### Fixed
 - Support for 2023.2 IDE's
 
