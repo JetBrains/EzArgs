@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 ### Fixed
+- Support for 2024.1 IDE's
+
+## [1.0.21]
+### Fixed
 - Support for 2023.3 IDE's
 
 ## [1.0.20]
