@@ -14,6 +14,8 @@
 
 ### Fixed
 
+- Support for 2024.2 IDE's
+
 ### Security
 
 ## 1.0.22 - 2024-01-15

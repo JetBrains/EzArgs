@@ -20,49 +20,30 @@ plugins {
 group = properties("pluginGroup")
 version = properties("pluginVersion")
 
-intellijPlatform {
-    buildSearchableOptions = false
-}
-
 // Configure project's dependencies
 repositories {
     mavenCentral()
-    maven("https://cache-redirector.jetbrains.com/intellij-dependencies")
-    maven("https://cache-redirector.jetbrains.com/intellij-repository/releases")
-    maven("https://cache-redirector.jetbrains.com/intellij-repository/snapshots")
-    maven("https://cache-redirector.jetbrains.com/maven-central")
 
     intellijPlatform {
         defaultRepositories()
+        jetbrainsRuntime()
     }
 }
 
 dependencies {
     intellijPlatform {
         rider(properties("platformVersion"))
-//        intellijIdeaCommunity("2024.1.2")
-
-//        bundledPlugin("com.intellij.java")
-//
-//        pluginVerifier()
-//        zipSigner()
-//        instrumentationTools()
-//        bundledLibrary("lib/testFramework.jar")
+        instrumentationTools()
+        bundledPlugin("com.jetbrains.rider-cpp")
+        jetbrainsRuntime()
     }
-//    testImplementation(libs.openTest4J)
 }
 
-// Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
-//intellij {
-//    pluginName.set(properties("pluginName"))
-//    version.set(properties("platformVersion"))
-//    type.set(properties("platformType"))
-//    downloadSources.set(properties("platformDownloadSources").toBoolean())
-//    updateSinceUntilBuild.set(true)
-//
-//    // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
-//    plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
-//}
+intellijPlatform {
+    pluginConfiguration {
+        name = properties("pluginName")
+    }
+}
 
 // Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
@@ -100,7 +81,6 @@ tasks {
     }
 
     patchPluginXml {
-//        version.set(properties("pluginVersion"))
         sinceBuild.set(properties("pluginSinceBuild"))
         untilBuild.set(properties("pluginUntilBuild"))
 
@@ -129,19 +109,6 @@ tasks {
             )
         })
     }
-
-//    runPluginVerifier {
-//        ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
-//    }
-
-    // Configure UI tests plugin
-    // Read more: https://github.com/JetBrains/intellij-ui-test-robot
-//    runIdeForUiTests {
-//        systemProperty("robot-server.port", "8082")
-//        systemProperty("ide.mac.message.dialogs.as.sheets", "false")
-//        systemProperty("jb.privacy.policy.text", "<!--999.999-->")
-//        systemProperty("jb.consents.confirmation.enabled", "false")
-//    }
 
     signPlugin {
         certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))

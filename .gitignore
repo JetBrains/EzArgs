@@ -1,3 +1,5 @@
+/.intellijPlatform/
+
 .gradle
 .idea
 build
