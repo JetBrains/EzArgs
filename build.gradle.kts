@@ -7,9 +7,9 @@ fun properties(key: String) = project.findProperty(key).toString()
 plugins {
     id("idea")
     // Kotlin support
-    kotlin("jvm") version "1.9.10"
+    kotlin("jvm") version "1.9.24" // https://mvnrepository.com/artifact/org.jetbrains.kotlin.jvm/org.jetbrains.kotlin.jvm.gradle.plugin
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.15.0" // https://github.com/JetBrains/gradle-intellij-plugin/releases
+    id("org.jetbrains.intellij.platform") version "2.0.0-beta3" // https://github.com/JetBrains/gradle-intellij-plugin/releases
     // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "2.2.0"
     // Gradle Qodana Plugin
@@ -20,22 +20,49 @@ plugins {
 group = properties("pluginGroup")
 version = properties("pluginVersion")
 
+intellijPlatform {
+    buildSearchableOptions = false
+}
+
 // Configure project's dependencies
 repositories {
     mavenCentral()
+    maven("https://cache-redirector.jetbrains.com/intellij-dependencies")
+    maven("https://cache-redirector.jetbrains.com/intellij-repository/releases")
+    maven("https://cache-redirector.jetbrains.com/intellij-repository/snapshots")
+    maven("https://cache-redirector.jetbrains.com/maven-central")
+
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+dependencies {
+    intellijPlatform {
+        rider(properties("platformVersion"))
+//        intellijIdeaCommunity("2024.1.2")
+
+//        bundledPlugin("com.intellij.java")
+//
+//        pluginVerifier()
+//        zipSigner()
+//        instrumentationTools()
+//        bundledLibrary("lib/testFramework.jar")
+    }
+//    testImplementation(libs.openTest4J)
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
-intellij {
-    pluginName.set(properties("pluginName"))
-    version.set(properties("platformVersion"))
-    type.set(properties("platformType"))
-    downloadSources.set(properties("platformDownloadSources").toBoolean())
-    updateSinceUntilBuild.set(true)
-
-    // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
-    plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
-}
+//intellij {
+//    pluginName.set(properties("pluginName"))
+//    version.set(properties("platformVersion"))
+//    type.set(properties("platformType"))
+//    downloadSources.set(properties("platformDownloadSources").toBoolean())
+//    updateSinceUntilBuild.set(true)
+//
+//    // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
+//    plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
+//}
 
 // Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
@@ -73,7 +100,7 @@ tasks {
     }
 
     patchPluginXml {
-        version.set(properties("pluginVersion"))
+//        version.set(properties("pluginVersion"))
         sinceBuild.set(properties("pluginSinceBuild"))
         untilBuild.set(properties("pluginUntilBuild"))
 
@@ -103,18 +130,18 @@ tasks {
         })
     }
 
-    runPluginVerifier {
-        ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
-    }
+//    runPluginVerifier {
+//        ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
+//    }
 
     // Configure UI tests plugin
     // Read more: https://github.com/JetBrains/intellij-ui-test-robot
-    runIdeForUiTests {
-        systemProperty("robot-server.port", "8082")
-        systemProperty("ide.mac.message.dialogs.as.sheets", "false")
-        systemProperty("jb.privacy.policy.text", "<!--999.999-->")
-        systemProperty("jb.consents.confirmation.enabled", "false")
-    }
+//    runIdeForUiTests {
+//        systemProperty("robot-server.port", "8082")
+//        systemProperty("ide.mac.message.dialogs.as.sheets", "false")
+//        systemProperty("jb.privacy.policy.text", "<!--999.999-->")
+//        systemProperty("jb.consents.confirmation.enabled", "false")
+//    }
 
     signPlugin {
         certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
