@@ -23,6 +23,8 @@ NB: Works only with [Rider for Unreal Engine](https://www.jetbrains.com/lp/rider
   Download the [latest release](https://github.com/JetBrains/EzArgs/releases/latest) and install it manually using
   <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
+  Test
+
 
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
