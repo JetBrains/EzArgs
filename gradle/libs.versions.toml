@@ -1,0 +1,2 @@
+[plugins]
+kotlinJvm = "org.jetbrains.kotlin.jvm:2.1.0" # https://mvnrepository.com/artifact/org.jetbrains.kotlin.jvm/org.jetbrains.kotlin.jvm.gradle.plugin

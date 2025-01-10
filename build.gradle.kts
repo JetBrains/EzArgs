@@ -6,8 +6,7 @@ fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
     id("idea")
-    // Kotlin support
-    kotlin("jvm") version "1.9.24" // https://mvnrepository.com/artifact/org.jetbrains.kotlin.jvm/org.jetbrains.kotlin.jvm.gradle.plugin
+    alias(libs.plugins.kotlinJvm)
     // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij.platform") version "2.0.0-beta3" // https://github.com/JetBrains/gradle-intellij-plugin/releases
     // Gradle Changelog Plugin
