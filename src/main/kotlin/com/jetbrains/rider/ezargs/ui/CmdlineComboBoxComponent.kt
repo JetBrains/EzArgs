@@ -151,7 +151,10 @@ class CmdlineComboBoxComponent(private val project: Project) : ComboBox<String>(
     }
 
     fun setHistory(history: Array<String>) {
-        model = DefaultComboBoxModel(history)
+        val newModel = DefaultComboBoxModel(history)
+        newModel.insertElementAt("", 0) // Add blank option to top of combo box
+
+        model = newModel
     }
 
     fun setText(text: String) {
