@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.support.kotlinCompilerOptions
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -5,14 +6,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
-    id("idea")
-    alias(libs.plugins.kotlinJvm)
-    // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij.platform") version "2.0.0-beta3" // https://github.com/JetBrains/gradle-intellij-plugin/releases
-    // Gradle Changelog Plugin
-    id("org.jetbrains.changelog") version "2.2.0"
-    // Gradle Qodana Plugin
-    id("org.jetbrains.qodana") version "0.1.13"
+    id("java") // Java support
+    alias(libs.plugins.kotlin) // Kotlin support
+    alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
+    alias(libs.plugins.changelog) // Gradle Changelog Plugin
+    alias(libs.plugins.qodana) // Gradle Qodana Plugin
     id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
 }
 
@@ -31,8 +29,9 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        rider(properties("platformVersion"))
-        instrumentationTools()
+        rider(properties("platformVersion")) {
+            useInstaller = false
+        }
         bundledPlugin("com.jetbrains.rider-cpp")
         jetbrainsRuntime()
     }
@@ -40,7 +39,7 @@ dependencies {
 
 intellijPlatform {
     pluginConfiguration {
-        name = properties("pluginName")
+//        name = providers.gradleProperty("pluginName")
     }
 }
 
@@ -56,11 +55,15 @@ changelog {
 }
 
 // Configure Gradle Qodana Plugin - read more: https://github.com/JetBrains/gradle-qodana-plugin
-qodana {
-    cachePath.set(projectDir.resolve(".qodana").canonicalPath)
-    reportPath.set(projectDir.resolve("build/reports/inspections").canonicalPath)
-    saveReport.set(true)
-    showReport.set(System.getenv("QODANA_SHOW_REPORT").toBoolean())
+//qodana {
+//    cachePath.set(projectDir.resolve(".qodana").canonicalPath)
+//    reportPath.set(projectDir.resolve("build/reports/inspections").canonicalPath)
+//    saveReport.set(true)
+//    showReport.set(System.getenv("QODANA_SHOW_REPORT").toBoolean())
+//}
+
+kotlin {
+    jvmToolchain(21)
 }
 
 tasks {
@@ -69,9 +72,6 @@ tasks {
         withType<JavaCompile> {
             sourceCompatibility = it
             targetCompatibility = it
-        }
-        withType<KotlinCompile> {
-            kotlinOptions.jvmTarget = it
         }
     }
 
@@ -121,6 +121,6 @@ tasks {
         // pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
-        channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
+//        channels.(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
     }
 }
