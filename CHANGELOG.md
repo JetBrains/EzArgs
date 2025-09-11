@@ -14,9 +14,13 @@
 
 ### Fixed
 
-- Support for 2025.3 IDE's
-
 ### Security
+
+## 1.0.27 - 2025-09-11
+
+### Fixed
+
+- Support for 2025.3 IDE's
 
 ## 1.0.23 - 2024-05-29
 
