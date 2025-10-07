@@ -8,7 +8,6 @@
 <!-- Plugin description -->
 The EzArgs plugin provides option to pass arguments to C++ run configurations in convenient matter by simply writing them in dropdown box on the toolbar.
 This plugin duplicates feature of [UnrealVS plugin: Command Line Arguments](https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/VisualStudioSetup/UnrealVS/index.html#commandlinearguments)
-NB: Works only with [Rider for Unreal Engine](https://www.jetbrains.com/lp/rider-unreal/) at this moment.
 <!-- Plugin description end -->
 
 ## Installation
