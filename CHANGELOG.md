@@ -34,6 +34,12 @@
 
 ### Security
 
+## 1.0.26 - 2025-01-11
+
+### Fixed
+
+- Added compatibility with Rider 2025.1
+
 ## 1.0.23 - 2024-05-29
 
 ### Fixed
