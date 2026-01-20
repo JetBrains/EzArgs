@@ -14,6 +14,22 @@
 
 ### Fixed
 
+- Support for 2026.1 IDE's
+
+### Security
+
+## 1.0.26 - 2025-10-05
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
 - Support for 2025.3 IDE's
 
 ### Security
